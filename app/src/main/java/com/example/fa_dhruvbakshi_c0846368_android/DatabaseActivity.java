@@ -58,7 +58,7 @@ public class DatabaseActivity extends SQLiteOpenHelper {
     }
     Cursor readData()
     {
-        String sql="SELECT * FROM favlocations";
+        String sql="SELECT * FROM favouriteloc";
         SQLiteDatabase sqLiteDatabase= this.getReadableDatabase();
         Cursor cursor=null;
         if(sqLiteDatabase!=null)
