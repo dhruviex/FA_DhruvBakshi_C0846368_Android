@@ -108,7 +108,7 @@ public class LocationActivity extends FragmentActivity implements OnMapReadyCall
             public void onClick(View v) {
 
                 AlertDialog.Builder builder = new AlertDialog.Builder(LocationActivity.this);
-                builder.setTitle(name.toString());
+                builder.setTitle(name);
                 builder.setMessage("You wanted to Delete this location?");
                 builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                     @Override
@@ -189,7 +189,7 @@ public class LocationActivity extends FragmentActivity implements OnMapReadyCall
                     System.out.println("Current time => " + c);
 
                     SimpleDateFormat df = new SimpleDateFormat("dd-MMM-yyyy", Locale.getDefault());
-                    String formattedDate = df.format(c);;
+                    String formattedDate = df.format(c);
                     name = formattedDate;
                 }
 
@@ -203,7 +203,7 @@ public class LocationActivity extends FragmentActivity implements OnMapReadyCall
             System.out.println("Current time => " + c);
 
             SimpleDateFormat df = new SimpleDateFormat("dd-MMM-yyyy", Locale.getDefault());
-            String formattedDate = df.format(c);;
+            String formattedDate = df.format(c);
             name = formattedDate;
         }
         if (name == null){
@@ -211,7 +211,7 @@ public class LocationActivity extends FragmentActivity implements OnMapReadyCall
             System.out.println("Current time => " + c);
 
             SimpleDateFormat df = new SimpleDateFormat("dd-MMM-yyyy", Locale.getDefault());
-            String formattedDate = df.format(c);;
+            String formattedDate = df.format(c);
             name = formattedDate;
         }
         MarkerOptions options = new MarkerOptions()
@@ -253,7 +253,7 @@ public class LocationActivity extends FragmentActivity implements OnMapReadyCall
     private void getLocation() {
         locationCallback = new LocationCallback() {
             @Override
-            public void onLocationResult(LocationResult locationResult) {
+            public void onLocationResult(@NonNull LocationResult locationResult) {
                 for (Location location: locationResult.getLocations()) {
                     LatLng userLocation = new LatLng(location.getLatitude(), location.getLongitude());
                     src = mMap.addMarker(new MarkerOptions().position(userLocation).title("You were here!"));
@@ -346,7 +346,6 @@ public class LocationActivity extends FragmentActivity implements OnMapReadyCall
                 List<Address> addresses = geocoder.getFromLocation(lati2,lng2, 1);
                 if (addresses != null && addresses.size() > 0) {
                     Log.i(TAG, "onLocationResult: " + addresses.get(0));
-                    String address = "";
                     if (addresses.get(0).getPremises() != null) {
                         name = addresses.get(0).getPremises();
                     } else if (addresses.get(0).getThoroughfare() != null) {
@@ -356,7 +355,7 @@ public class LocationActivity extends FragmentActivity implements OnMapReadyCall
                         System.out.println("Current time => " + c);
 
                         SimpleDateFormat df = new SimpleDateFormat("dd-MMM-yyyy", Locale.getDefault());
-                        String formattedDate = df.format(c);;
+                        String formattedDate = df.format(c);
                         name = formattedDate;
                     }
 
@@ -372,11 +371,10 @@ public class LocationActivity extends FragmentActivity implements OnMapReadyCall
                 System.out.println("Current time => " + c);
 
                 SimpleDateFormat df = new SimpleDateFormat("dd-MMM-yyyy", Locale.getDefault());
-                String formattedDate = df.format(c);;
-                name = formattedDate;
+                name = df.format(c);
             }
 
-            try{DB.updateData(id.toString(),name.toString(),lati2,lng2);
+            try{DB.updateData(id, name,lati2,lng2);
                 marker.setTitle(name);}
             catch(Exception e){
                 Toast.makeText(this, " Failed Updating !!", Toast.LENGTH_SHORT).show();

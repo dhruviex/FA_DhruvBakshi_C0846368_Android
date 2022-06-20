@@ -15,8 +15,8 @@ public class DatabaseActivity extends SQLiteOpenHelper {
     public static final String TABLE_NAME="favouriteloc";
     public static final String ID="id";
     public static final String NAME="name";
-    public static final String LAT="lati";
-    public static final String LONG="lng";
+    public static final String LATITUDE="latitude";
+    public static final String LONGITUDE="longitude";
 
     public DatabaseActivity (Context context){
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -29,8 +29,8 @@ public class DatabaseActivity extends SQLiteOpenHelper {
                 "CREATE TABLE IF NOT EXISTS favouriteloc("+
                         "id INTEGER CONSTRAINT pk PRIMARY KEY AUTOINCREMENT,"+
                         "name VARCHAR(20) NOT NULL,"+
-                        "lati DOUBLE,"+
-                        "long DOUBLE NOT NULL);";
+                        "latitude DOUBLE NOT NULL,"+
+                        "longitude DOUBLE NOT NULL);";
         sqLiteDatabase.execSQL(sql);
     }
 
@@ -40,13 +40,13 @@ public class DatabaseActivity extends SQLiteOpenHelper {
 
     }
     void addItem(String name ,
-                 double lati, double lng )
+                 double latitude, double longitude )
     {
         SQLiteDatabase db=this.getWritableDatabase();
         ContentValues cv= new ContentValues();
         cv.put(NAME,name);
-        cv.put(LAT,lati);
-        cv.put(LONG,lng);
+        cv.put(LATITUDE,latitude);
+        cv.put(LONGITUDE,longitude);
         long result = db.insert(TABLE_NAME,null,cv);
         if (result == -1)
         {
@@ -67,13 +67,13 @@ public class DatabaseActivity extends SQLiteOpenHelper {
         }
         return cursor;
     }
-    void updateData(String id1,String name, double lati, double lng)
+    void updateData(String id1,String name, double latitude, double longitude)
     {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues cv= new ContentValues();
         cv.put(NAME,name);
-        cv.put(LAT,lati);
-        cv.put(LONG,lng);
+        cv.put(LATITUDE,latitude);
+        cv.put(LONGITUDE,longitude);
         long result = db.update("favouriteloc",cv,"id=?",new String[]{id1});
         if (result == -1)
         {

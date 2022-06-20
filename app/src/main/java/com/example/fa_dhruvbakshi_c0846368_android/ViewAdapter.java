@@ -19,16 +19,16 @@ public class ViewAdapter extends RecyclerView.Adapter<ViewAdapter.MyViewHolder> 
 
     Context context;
     Activity activity;
-    ArrayList<String> id,name, lati, lng;
+    ArrayList<String> id,name, latitude, longitude;
     private MyViewHolder holder;
 
-    ViewAdapter(Activity activity, Context context, ArrayList id, ArrayList name, ArrayList lati, ArrayList lng){
+    ViewAdapter(Activity activity, Context context, ArrayList id, ArrayList name, ArrayList latitude, ArrayList longitude){
         this.activity=activity;
         this.context=context;
         this.id=id;
         this.name=name;
-        this.lati = lati;
-        this.lng = lng;
+        this.latitude = latitude;
+        this.longitude = longitude;
 
     }
     @NonNull
@@ -44,8 +44,8 @@ public class ViewAdapter extends RecyclerView.Adapter<ViewAdapter.MyViewHolder> 
 
         holder.idtxt.setText(String.valueOf(id.get(position)));
         holder.nametxt.setText(String.valueOf(name.get(position)));
-        holder.latitxt.setText(String.valueOf(lati.get(position)));
-        holder.longtxt.setText(String.valueOf(lng.get(position)));
+        holder.latitxt.setText(String.valueOf(latitude.get(position)));
+        holder.longtxt.setText(String.valueOf(longitude.get(position)));
         holder.mainlayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -53,8 +53,8 @@ public class ViewAdapter extends RecyclerView.Adapter<ViewAdapter.MyViewHolder> 
                 Intent intent = new Intent(context, LocationActivity.class);
                 intent.putExtra("id",String.valueOf(id.get(position)));
                 intent.putExtra("name",String.valueOf(name.get(position)));
-                intent.putExtra("lati",String.valueOf(lati.get(position)));
-                intent.putExtra("longi",String.valueOf(lng.get(position)));
+                intent.putExtra("lati",String.valueOf(latitude.get(position)));
+                intent.putExtra("lng",String.valueOf(longitude.get(position)));
 
                 activity.startActivityForResult(intent,1);
             }

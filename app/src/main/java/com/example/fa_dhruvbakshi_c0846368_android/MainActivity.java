@@ -18,7 +18,7 @@ import java.util.ArrayList;
 public class MainActivity extends AppCompatActivity {
 
     RecyclerView recyclerView;
-    FloatingActionButton plusBtn, directionBtn;
+    FloatingActionButton plusBtn, dirBtn;
     DatabaseActivity DB;
     ArrayList<String> id, name, lati, lng;
     ViewAdapter viewAdapter;
@@ -30,6 +30,15 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         recyclerView = findViewById(R.id.list);
         plusBtn = findViewById(R.id.plusBtn);
+        dirBtn = findViewById(R.id.locationBtn);
+        DB = new DatabaseActivity(MainActivity.this);
+        id = new ArrayList<>();
+        name = new ArrayList<>();
+        lati = new ArrayList<>();
+        lng = new ArrayList<>();
+        viewAdapter = new ViewAdapter(MainActivity.this, MainActivity.this, id, name, lati, lng);
+        recyclerView.setAdapter(viewAdapter);
+        recyclerView.setLayoutManager(new LinearLayoutManager(MainActivity.this));
         plusBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -38,23 +47,15 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
-        DB = new DatabaseActivity(MainActivity.this);
-        id = new ArrayList<>();
-        name = new ArrayList<>();
-        lati = new ArrayList<>();
-        lng = new ArrayList<>();
-        displaydata();
-        viewAdapter = new ViewAdapter(MainActivity.this, MainActivity.this, id, name, lati, lng);
-        recyclerView.setAdapter(viewAdapter);
-        recyclerView.setLayoutManager(new LinearLayoutManager(MainActivity.this));
-        directionBtn = findViewById(R.id.directBtn);
-        directionBtn.setOnClickListener(new View.OnClickListener() {
+        dirBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(MainActivity.this, LocationActivity.class);
                 startActivity(intent);
             }
         });
+
+        displaydata();
     }
 
 
